@@ -1,12 +1,12 @@
-#+TITLE: burgled-batteries: A Common Lisp / Python Bridge
+#+TITLE: burgled-batteries3: A Common Lisp / Python Bridge
 
-burgled-batteries provides a shim between Python (specifically, the CPython
+burgled-batteries3 provides a shim between Python3 (specifically, the CPython
 implementation of Python) and Common Lisp.
 
 * Synopsis
 
 #+begin_src lisp
-  (asdf:load-system "burgled-batteries")
+  (asdf:load-system "burgled-batteries3")
   (in-package #:burgled-batteries)
   (startup-python)
   
@@ -22,7 +22,7 @@ implementation of Python) and Common Lisp.
   (shutdown-python)
 #+end_src
 
-* Why burgled-batteries
+* Why burgled-batteries3
 CLPython is great when it works.  However, if you're using a low-resource
 computer—perhaps an underpowered VPS, or a Linux box salvaged from the 90s—, or
 need access to a Python library written in C, or there's a bug and you can't be
@@ -30,7 +30,7 @@ bothered to narrow it down to a small test case, CLPython can't help you.  Two
 out of three of those are more your problem than CLPython's, but hey, I'm not
 here to judge.
 
-While a number of other Python-by-FFI options exist, burgled-batteries aims for
+While a number of other Python-by-FFI options exist, burgled-batteries3 aims for
 a CLPython-esque level of integration.  In other words, *deep* integration.  You
 shouldn't have to care that the library you're using was written in Python—it
 should Just Work.
@@ -107,7 +107,7 @@ with [[http://pinterface.livejournal.com/40934.html][some caveats]] which you sh
 
 * Requirements
 
-Burgled-batteries links with C code, and accordingly requires the appropriate
+Burgled-batteries3 links with C code, and accordingly requires the appropriate
 headers and library files.  On Debian-based systems, you can get these via:
 #+begin_src sh
   sudo apt-get install python-dev
@@ -116,7 +116,7 @@ headers and library files.  On Debian-based systems, you can get these via:
 * Testing
 
 #+begin_src
-  (asdf:test-system "burgled-batteries")
+  (asdf:test-system "burgled-batteries3")
 #+end_src
 
 Tests have been run under SBCL, Clozure CL, and CLISP.

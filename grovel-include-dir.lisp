@@ -17,15 +17,9 @@
         :when (cl-fad:directory-exists-p path) :return it))
 
 (defparameter *cpython-include-dir*
-  (or #+python3
-      (loop :for minor :from 7 :downto 3
+  (or (loop :for minor :from 7 :downto 3
             :when (or (cl-fad:directory-exists-p (format nil "/usr/include/python3.~d" minor))
                       (cl-fad:directory-exists-p (format nil "/usr/local/include/python3.~d" minor)))
-              :return it)
-      #-python3
-      (loop :for minor :from 7 :downto 4
-            :when (or (cl-fad:directory-exists-p (format nil "/usr/include/python2.~d" minor))
-                      (cl-fad:directory-exists-p (format nil "/usr/local/include/python2.~d" minor)))
               :return it)
       ;; This allows us to avoid querying the user during a recompile, while
       ;; still allowing for a change in Python version

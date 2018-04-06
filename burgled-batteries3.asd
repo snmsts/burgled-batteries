@@ -1,16 +1,14 @@
-;;; burgled-batteries.asd --- ASDF system definition for burgled-batteries
+;;; burgled-batteries3.asd --- ASDF system definition for burgled-batteries3
 
 #-burgled-batteries.guess-not-grovel
 (cl:eval-when (:load-toplevel :execute)
   (asdf:load-system "cffi-grovel"))
 
-(defpackage #:burgled-batteries-system (:use #:asdf #:cl #-burgled-batteries.guess-not-grovel #:cffi-grovel))
-(in-package #:burgled-batteries-system)
-
-(defsystem "burgled-batteries"
+(defsystem "burgled-batteries3"
+    :defsystem-depends-on (#-burgled-batteries.guess-not-grovel "cffi-grovel")
     :depends-on (#:cffi #:alexandria #:parse-declarations-1.0 #:trivial-garbage
                         #-burgled-batteries.guess-not-grovel #:cl-fad)
-    :name "burgled-batteries"
+    :name "burgled-batteries3"
     :author "pinterface <pix@kepibu.org>"
     :license "MIT"
     :description "Lisp-Python interface"
@@ -35,7 +33,7 @@ in #p\"grovel-include-dir.lisp\".
     :components
     ((:file "packages")
      #-burgled-batteries.guess-not-grovel (:file "grovel-include-dir")
-     #-burgled-batteries.guess-not-grovel (grovel-file "grovel")
+     #-burgled-batteries.guess-not-grovel (cffi-grovel:grovel-file "grovel")
      #+burgled-batteries.guess-not-grovel (:file "grovel-guess")
      (:file "cffi-output-args")
      (:file "ffi-definers")
@@ -44,4 +42,4 @@ in #p\"grovel-include-dir.lisp\".
      (:file "ffi-callbacks")
      (:file "module")
      (:file "api"))
-    :in-order-to ((test-op (test-op #:burgled-batteries-tests))))
+    :in-order-to ((test-op (test-op #:burgled-batteries3-tests))))

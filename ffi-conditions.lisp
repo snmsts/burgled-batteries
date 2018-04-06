@@ -9,8 +9,6 @@
 (defpyexception "BaseException" (python-condition)
     (("args" :initarg :args)))
 (defpyexception "Exception" () ())
-#-python3
-(defpyexception "StandardError" (python-error) ())
 (defpyexception "ArithmeticError" () ())
 (defpyexception "LookupError" () ())
 (defpyexception "AssertionError" () ())

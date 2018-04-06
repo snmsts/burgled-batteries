@@ -1,9 +1,9 @@
-;;; burgled-batteries-tests.asdf --- system definition for the burgled-batteries
+;;; burgled-batteries3-tests.asdf --- system definition for the burgled-batteries3
 ;;; test suite
 
-(defsystem "burgled-batteries-tests"
-  :name "burgled-batteries-tests"
-  :description "burgled-batteries tests"
+(defsystem "burgled-batteries3-tests"
+  :name "burgled-batteries3-tests"
+  :description "burgled-batteries3 tests"
   :author "pinterface <pix@kepibu.org>"
   :license "MIT"
   :serial t
@@ -20,5 +20,5 @@
      (:file "callbacks")
      (:file "modules"))
     :serial t))
-  :depends-on (#:burgled-batteries #:lift #:cl-quickcheck)
+  :depends-on (#:burgled-batteries3 #:lift #:cl-quickcheck)
   :perform (test-op (o c) #+asdf3 (uiop:symbol-call '#:python-cffi.test '#:run-tests)))

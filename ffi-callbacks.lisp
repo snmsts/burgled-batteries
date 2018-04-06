@@ -81,7 +81,7 @@ RETURN-TYPE should be either :pointer, in which case type translation will not o
           (%type.getattro       ptr) (null-pointer)
           (%type.setattro       ptr) (null-pointer)
           (%type.as-buffer      ptr) (null-pointer)
-          (%type.flags          ptr) #-python3 '() #+python3 0
+          (%type.flags          ptr) 0
           (%type.doc            ptr) (or documentation (null-pointer))
           (%type.traverse       ptr) (null-pointer)
           (%type.clear          ptr) (null-pointer)

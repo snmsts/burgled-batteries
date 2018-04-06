@@ -1,6 +1,6 @@
-(defsystem :burgled-batteries-demo
-  :name "burgled-batteries-demo"
-  :description "burgled-batteries demo"
+(defsystem :burgled-batteries3-demo
+  :name "burgled-batteries3-demo"
+  :description "burgled-batteries3 demo"
   :author "pinterface <pix@kepibu.org>"
   :maintainer "mmontone <marianomontone@gmail.com>"
   :license "MIT"
@@ -12,4 +12,4 @@
     ((:file "package")
      (:file "todo-list"))
     :serial t))
-  :depends-on (#:burgled-batteries))
+  :depends-on (#:burgled-batteries3))
