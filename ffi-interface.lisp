@@ -5,10 +5,8 @@
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (define-foreign-library python-library
     (:darwin (:framework "Python"))
-    (:unix (:or "~/anaconda3/envs/py35/lib/libpython3.5m.so.1.0"
-                "libpython3.5m.so.1.0"
+    (:unix (:or "libpython3.5m.so.1.0"
                 "libpython3.5.so.1.0"
-                "~/anaconda3/envs/py34/lib/libpython3.4m.so.1.0"
                 "libpython3.4m.so.1.0"
                 "libpython3.4.so.1.0"))
     (:windows (:or "python35.dll" "python34.dll"))
@@ -152,7 +150,7 @@
   (:to (value type) (long.from-long* value))
   (:from (value type) (long.as-long value)))
 
-(defpyvar "&_Py_ZeroStruct" +False+)
+(defpyvar "&_Py_FalseStruct" +False+)
 (defpyvar "&_Py_TrueStruct" +True+)
 (defpytype "PyBool"
   (:superclass "PyLong")
