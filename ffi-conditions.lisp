@@ -52,4 +52,4 @@
 (defmethod print-object ((condition environment-error) stream)
   (write (slot-value condition 'strerror) :stream stream))
 
-#+(or) (burgled-batteries:run "1+")
+#+(or) (burgled-batteries3:run "1+")

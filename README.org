@@ -7,7 +7,7 @@ implementation of Python) and Common Lisp.
 
 #+begin_src lisp
   (asdf:load-system "burgled-batteries3")
-  (in-package #:burgled-batteries)
+  (in-package #:burgled-batteries3)
   (startup-python)
   
   (run "1+1") ; => 2
@@ -93,10 +93,10 @@ For example, under the default policy of :DISCARD, you would see something like:
   (format t "~A~%" (slot-value c 'exception-type)))
 
 (handler-bind ((python-condition #'reveal-effect))
-  (burgled-batteries:run "1/0"))
+  (burgled-batteries3:run "1/0"))
 ; prints #.(SB-SYS:INT-SAP #X?????)
 
-(handler-case (burgled-batteries:run "1/0")
+(handler-case (burgled-batteries3:run "1/0")
   (python-condition (c) (reveal-effect c)))
 ; prints NIL
 #+end_src

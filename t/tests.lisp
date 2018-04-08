@@ -2,8 +2,8 @@
 
 (lift:deftestsuite burgled-batteries ()
   ()
-  (:setup (burgled-batteries:startup-python))
-  (:teardown (burgled-batteries:shutdown-python)))
+  (:setup (burgled-batteries3:startup-python))
+  (:teardown (burgled-batteries3:shutdown-python)))
 
 (defun run-tests ()
   (lift:run-tests :suite 'burgled-batteries))

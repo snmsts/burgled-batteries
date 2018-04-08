@@ -1,13 +1,13 @@
 ;;; burgled-batteries3.asd --- ASDF system definition for burgled-batteries3
 
-#-burgled-batteries.guess-not-grovel
+#-burgled-batteries3.guess-not-grovel
 (cl:eval-when (:load-toplevel :execute)
   (asdf:load-system "cffi-grovel"))
 
 (defsystem "burgled-batteries3"
-    :defsystem-depends-on (#-burgled-batteries.guess-not-grovel "cffi-grovel")
+    :defsystem-depends-on (#-burgled-batteries3.guess-not-grovel "cffi-grovel")
     :depends-on (#:cffi #:alexandria #:parse-declarations-1.0 #:trivial-garbage
-                        #-burgled-batteries.guess-not-grovel #:cl-fad)
+                        #-burgled-batteries3.guess-not-grovel #:cl-fad)
     :name "burgled-batteries3"
     :author "pinterface <pix@kepibu.org>"
     :license "MIT"

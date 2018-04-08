@@ -67,19 +67,19 @@
 
   (python::initialize-modules)
 
-  (burgled-batteries:import "module_test")
+  (burgled-batteries3:import "module_test")
 
   ;; module_test.no_args()
-  (lift:ensure (equalp (burgled-batteries:run "module_test.no_args()")
+  (lift:ensure (equalp (burgled-batteries3:run "module_test.no_args()")
                        '(nil nil)))
 
   ;; module_test.args(22, 'a')
-  (lift:ensure (equalp (burgled-batteries:run "module_test.args(22, 'a')")
+  (lift:ensure (equalp (burgled-batteries3:run "module_test.args(22, 'a')")
                        '(nil (22 "a") 22)))
 
   ;; module_test.key_args(arg1='foo')
   (destructuring-bind (self args dict arg1)
-      (burgled-batteries:run "module_test.key_args(arg1='foo')")
+      (burgled-batteries3:run "module_test.key_args(arg1='foo')")
     (lift:ensure (equalp args nil))
     (lift:ensure (equalp (gethash "arg1" dict) "foo"))
     (lift:ensure (equalp arg1 "foo"))))

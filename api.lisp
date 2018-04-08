@@ -1,4 +1,4 @@
-(in-package #:burgled-batteries)
+(in-package #:burgled-batteries3)
 
 (define-symbol-macro main-module*
     (import.add-module* "__main__"))

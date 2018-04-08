@@ -63,19 +63,19 @@
 
   (make-callbacks-test-module)
 
-  (burgled-batteries:import "callbacks_test")
+  (burgled-batteries3:import "callbacks_test")
 
   ;; callbacks_test.no_args()
-  (lift:ensure (equalp (burgled-batteries:run "callbacks_test.no_args()")
+  (lift:ensure (equalp (burgled-batteries3:run "callbacks_test.no_args()")
                        '(nil nil)))
 
   ;; callbacks_test.args(22, 'a')
-  (lift:ensure (equalp (burgled-batteries:run "callbacks_test.args(22, 'a')")
+  (lift:ensure (equalp (burgled-batteries3:run "callbacks_test.args(22, 'a')")
                        '(nil (22 "a") 22)))
 
   ;; callbacks_test.key_args(arg1='foo')
   (destructuring-bind (self args dict arg1)
-      (burgled-batteries:run "callbacks_test.key_args(arg1='foo')")
+      (burgled-batteries3:run "callbacks_test.key_args(arg1='foo')")
     (lift:ensure (equalp args nil))
     (lift:ensure (equalp (gethash "arg1" dict) "foo"))
     (lift:ensure (equalp arg1 "foo"))))

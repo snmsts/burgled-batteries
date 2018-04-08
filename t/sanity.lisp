@@ -21,22 +21,22 @@
 (addtest (burgled-batteries)
   apply-min
   (let ((nums (alexandria:shuffle (list 1 2 3 4 5 6 7 8 9 10))))
-    (burgled-batteries::with-cpython-pointer (min-fn (burgled-batteries:run* "min"))
-      (assert (= (apply #'burgled-batteries:apply min-fn nums)
+    (burgled-batteries3::with-cpython-pointer (min-fn (burgled-batteries3:run* "min"))
+      (assert (= (apply #'burgled-batteries3:apply min-fn nums)
                  (apply #'min nums))
               ()
               "Something seems to be wrong with APPLY.  Have types been switched again?"))))
 
 (eval-when (:compile-toplevel :load-toplevel)
-  (burgled-batteries:startup-python))
+  (burgled-batteries3:startup-python))
 
 (addtest (burgled-batteries)
   defpyfun-max
-  (burgled-batteries:defpyfun ("max" pymax) (&rest args))
+  (burgled-batteries3:defpyfun ("max" pymax) (&rest args))
   (let ((nums (alexandria:shuffle (list 1 2 3 4 5 6 7 8 9 10))))
     (assert (= (pymax nums) (apply #'max nums))
             ()
             "Either MAX is broken or DEFPYFUN is having issues.")))
 
 (eval-when (:compile-toplevel :load-toplevel)
-  (burgled-batteries:shutdown-python))
+  (burgled-batteries3:shutdown-python))

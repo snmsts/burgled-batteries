@@ -58,7 +58,7 @@ converting to and from the type.  See the WARNING above (defpytype \"PyString\"
 ...) for details.
 "))
 
-(defpackage #:burgled-batteries
+(defpackage #:burgled-batteries3
   (:nicknames #:python)
   (:use #:cl #:python3.cffi #:alexandria)
   (:shadowing-import-from #:python3.cffi #:arithmetic-error #:type-error)
