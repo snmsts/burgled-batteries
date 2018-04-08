@@ -1,4 +1,4 @@
-(in-package #:python.cffi)
+(in-package #:python3.cffi)
 #||
 
 We want to expand into a CFFI defcallback, then parse the arguments so we can

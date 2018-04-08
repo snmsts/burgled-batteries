@@ -21,4 +21,4 @@
      (:file "modules"))
     :serial t))
   :depends-on (#:burgled-batteries3 #:lift #:cl-quickcheck)
-  :perform (test-op (o c) #+asdf3 (uiop:symbol-call '#:python-cffi.test '#:run-tests)))
+  :perform (test-op (o c) #+asdf3 (uiop:symbol-call '#:python3-cffi.test '#:run-tests)))

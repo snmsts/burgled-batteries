@@ -74,19 +74,19 @@ to (run \"import NAME\")."
     (eval.eval-code* code-ptr main-module-dict* main-module-dict*)))
 
 (defmethod run* ((file pathname))
-  (let ((fp (python.cffi::%fopen (namestring file) "r")))
+  (let ((fp (python3.cffi::%fopen (namestring file) "r")))
     ;; FIXME: null pointer check belongs in FILE* translator, not here.
     (if (cffi:null-pointer-p fp)
         (error "Unable to open file ~A" file)
         (unwind-protect
-             (python.cffi:run.any-file fp (namestring file))
-          (python.cffi::%fclose fp)))))
+             (python3.cffi:run.any-file fp (namestring file))
+          (python3.cffi::%fclose fp)))))
 
 ;; Rather than duplicate all the defmethods of RUN*, we just call RUN* here and
 ;; translate the value ourselves.
 (defun run (thing)
   "Like RUN*, but makes an effort to return a Lispy value."
-  (cffi:convert-from-foreign (run* thing) 'cpython::object!))
+  (cffi:convert-from-foreign (run* thing) 'cpython3::object!))
 
 (defun apply (func &rest args)
   (warn-if-uninitialized)

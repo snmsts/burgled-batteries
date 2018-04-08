@@ -1,19 +1,19 @@
-(in-package #:python-cffi.test)
+(in-package #:python3-cffi.test)
 
 (addtest (burgled-batteries)
   types-have-refcnts-and-are-types
   (let (type-vars)
-    (do-external-symbols (s '#:cpython type-vars)
+    (do-external-symbols (s '#:cpython3 type-vars)
       (let ((symbol-name (symbol-name s)))
         (when (and (string= '#:+ symbol-name :end2 1)
                    (string= '#:.type+ symbol-name :start2 (- (length symbol-name) 6)))
           (push s type-vars))))
     (loop :for type-var :in type-vars
-          :do (assert (plusp (cpython::%object.refcnt (eval type-var)))
+          :do (assert (plusp (cpython3::%object.refcnt (eval type-var)))
                       ()
                       "Python type ~S does not have a positive reference count."
                       type-var)
-              (assert (string= "<type '" (cpython:object.str (eval type-var)) :end2 7)
+              (assert (string= "<type '" (cpython3:object.str (eval type-var)) :end2 7)
                       ()
                       "Python type ~S is not stringified as a type."
                       type-var))))

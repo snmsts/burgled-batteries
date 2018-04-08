@@ -1,4 +1,4 @@
-(in-package #:python.cffi)
+(in-package #:python3.cffi)
 
 (cc-flags #.(format nil "-I~A" *cpython-include-dir*))
 

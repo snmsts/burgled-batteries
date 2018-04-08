@@ -6,17 +6,17 @@
 
 (defvar *todo-list* nil)
 
-(python:defpycallback (get-todo-list :return-type python.cffi::tuple)
+(python:defpycallback (get-todo-list :return-type python3.cffi::tuple)
     ()
   *todo-list*)
 
-(python:defpycallback (add-item :return-type python.cffi::tuple)
-    ((item python.cffi::string))
+(python:defpycallback (add-item :return-type python3.cffi::tuple)
+    ((item python3.cffi::string))
   (push item *todo-list*)
   *todo-list*)
 
-(python:defpycallback (remove-item :return-type python.cffi::tuple)
-    ((item python.cffi::string))
+(python:defpycallback (remove-item :return-type python3.cffi::tuple)
+    ((item python3.cffi::string))
   (setf *todo-list* (delete item *todo-list* :test #'string=))
   *todo-list*)
 

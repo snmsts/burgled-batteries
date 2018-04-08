@@ -1,4 +1,4 @@
-(in-package #:cpython)
+(in-package #:python3.cffi)
 
 (defun read-path ()
   (format *query-io* "Enter directory containing Python's C header files: ")

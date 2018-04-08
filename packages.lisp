@@ -1,5 +1,5 @@
-(defpackage #:python.cffi
-  (:nicknames #:cpython)
+(defpackage #:python3.cffi
+  (:nicknames #:cpython3)
   (:use #:cl #:cffi #:alexandria #:tcr.parse-declarations-1.0)
   (:import-from #:cffi #:parse-type #:find-type-parser)
   (:shadow #:type #:list #:float #:string #:complex #:function #:method #:type-error #:return #:arithmetic-error)
@@ -17,11 +17,11 @@
            .
            ;; SUPER HACKY to aid reloading
            #.(let ((sym nil))
-               (when (find-package '#:python.cffi)
-                 (do-external-symbols (v '#:python.cffi sym)
+               (when (find-package '#:python3.cffi)
+                 (do-external-symbols (v '#:python3.cffi sym)
                    (push (symbol-name v) sym)))))
   (:documentation "
-PYTHON.CFFI is the package for defining the CFFI interface to Python's external
+PYTHON3.CFFI is the package for defining the CFFI interface to Python's external
 C functions.  It provides several macros to aid in this effort, namely DEFPYFUN,
 DEFPYVAR, and DEFPYTYPE.  See the documentation for those macros for more
 information.
@@ -60,8 +60,8 @@ converting to and from the type.  See the WARNING above (defpytype \"PyString\"
 
 (defpackage #:burgled-batteries
   (:nicknames #:python)
-  (:use #:cl #:python.cffi #:alexandria)
-  (:shadowing-import-from #:python.cffi #:arithmetic-error #:type-error)
+  (:use #:cl #:python3.cffi #:alexandria)
+  (:shadowing-import-from #:python3.cffi #:arithmetic-error #:type-error)
   (:shadow #:import
            #:apply)
   (:export #:startup-python

@@ -1,4 +1,4 @@
-(in-package #:python.cffi)
+(in-package #:python3.cffi)
 
 ;;;; FFI -> Lisp Name Translation
 (defun translate-camel-case (name)

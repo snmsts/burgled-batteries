@@ -70,7 +70,7 @@ is replaced with replacement."
 		  :pointer
 		  '*python-module*))
     `(progn
-       (python.cffi::defpycallback ,lisp-name ,return-type ,args ,@body)
+       (python3.cffi::defpycallback ,lisp-name ,return-type ,args ,@body)
        (when ,python-module
 	 (pushnew 
 	  (cons ,python-name
@@ -79,7 +79,7 @@ is replaced with replacement."
 	  :test #'equalp)))))
 
 (defun initialize-module (module)
-  (python.cffi::build-module 
+  (python3.cffi::build-module 
    (python-module-python-name module)
    (python-module-methods module)))
 

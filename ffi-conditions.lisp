@@ -1,4 +1,4 @@
-(in-package #:python.cffi)
+(in-package #:python3.cffi)
 
 ;; Python must have been initialized for our macroexpansions to work.
 (eval-when (:compile-toplevel :load-toplevel)

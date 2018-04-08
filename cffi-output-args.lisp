@@ -1,4 +1,4 @@
-(in-package #:python.cffi)
+(in-package #:python3.cffi)
 
 (define-foreign-type output-arg (cffi::enhanced-foreign-type)
   ((real-type :initarg :real-type :reader real-type)))

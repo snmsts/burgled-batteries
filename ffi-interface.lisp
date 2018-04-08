@@ -1,4 +1,4 @@
-(in-package #:python.cffi)
+(in-package #:cpython3)
 
 ;;;; FFI Library
 ;; Much of what we do below requires it be loaded during macroexpansion time.
@@ -25,8 +25,8 @@
 
 ;;;; Basic Handling of the PyObject struct
 (defcstruct* %object ()
-  #+cpython:trace-refs (-ob-next object)
-  #+cpython:trace-refs (-ob-prev object)
+  #+cpython3:trace-refs (-ob-next object)
+  #+cpython3:trace-refs (-ob-prev object)
   (refcnt ssize-t)
   (type :pointer type))
 

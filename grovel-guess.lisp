@@ -1,6 +1,6 @@
 ;; For platforms where compiling a grovel file is too difficult (Windows), just
 ;; guess at appropriate values.
-(cl:in-package #:python.cffi)
+(cl:in-package #:python3.cffi)
 
 (cffi:defctype ssize-t (or #+cffi-features:x86 :int32
                            #+cffi-features:x86-64 :int64

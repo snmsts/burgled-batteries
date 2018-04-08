@@ -1,4 +1,4 @@
-(in-package #:python-cffi.test)
+(in-package #:python3-cffi.test)
 
 (lift:deftestsuite burgled-batteries ()
   ()
