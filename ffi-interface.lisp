@@ -5,11 +5,15 @@
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (define-foreign-library python-library
     (:darwin (:framework "Python"))
-    (:unix (:or "libpython3.5m.so.1.0"
-                "libpython3.5.so.1.0"
-                "libpython3.4m.so.1.0"
-                "libpython3.4.so.1.0"))
-    (:windows (:or "python35.dll" "python34.dll"))
+    (:unix #.(if *cpython-lib*
+                 `(:or ,@*cpython-lib*)
+                 `(:or "libpython3.6m.so.1.0"
+                       "libpython3.6.so.1.0"
+                       "libpython3.5m.so.1.0"
+                       "libpython3.5.so.1.0"
+                       "libpython3.4m.so.1.0"
+                       "libpython3.4.so.1.0")))
+    (:windows (:or "python36.dll" "python35.dll" "python34.dll"))
     (t (:default "libpython")))
   (use-foreign-library python-library))
 

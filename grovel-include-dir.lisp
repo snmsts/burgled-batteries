@@ -16,13 +16,29 @@
                :then (query-error "Path ~s does not appear to exist." path)
         :when (cl-fad:directory-exists-p path) :return it))
 
-(defparameter *cpython-include-dir*
-  (or (loop :for minor :from 7 :downto 3
-            :when (or (cl-fad:directory-exists-p (format nil "/usr/include/python3.~d" minor))
-                      (cl-fad:directory-exists-p (format nil "/usr/local/include/python3.~d" minor)))
-              :return it)
+(defvar *miniconda3* t)
+(defvar *cpython-lib* nil)
+
+(defun detect-python ()
+  (setf *detected-library* nil)
+  (or (when *miniconda3*
+        (let ((path (if (pathnamep *miniconda3*)
+                        *miniconda3*
+                        (merge-pathnames "miniconda3/" (user-homedir-pathname)))))
+          (loop :for minor :from 7 :downto 4
+             :for it := (cl-fad:directory-exists-p (merge-pathnames (format nil "include/python3.~dm/" minor) path))
+             :when it
+             :return (progn
+                       (setf *cpython-lib* (cl:list (merge-pathnames (format nil "lib/libpython3.~Am.so.1.0" minor) path)))
+                       it))))
+      (loop :for minor :from 7 :downto 4
+         :when (or (cl-fad:directory-exists-p (format nil "/usr/include/python3.~d" minor))
+                   (cl-fad:directory-exists-p (format nil "/usr/local/include/python3.~d" minor)))
+         :return it)
       ;; This allows us to avoid querying the user during a recompile, while
       ;; still allowing for a change in Python version
       (when (boundp '*cpython-include-dir*)
         (cl-fad:directory-exists-p *cpython-include-dir*))
       (query-user-for-include-dir)))
+
+(defparameter *cpython-include-dir* (detect-python))
