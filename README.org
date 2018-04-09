@@ -110,7 +110,7 @@ with [[http://pinterface.livejournal.com/40934.html][some caveats]] which you sh
 Burgled-batteries3 links with C code, and accordingly requires the appropriate
 headers and library files.  On Debian-based systems, you can get these via:
 #+begin_src sh
-  sudo apt-get install python-dev
+  sudo apt-get install python3-dev
 #+end_src
 
 * Testing
