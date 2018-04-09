@@ -1,5 +1,6 @@
 (defpackage #:burgled-batteries3-import
   (:use #:cl #:python3.cffi)
+  (:shadow #:arithmetic-error #:type-error)
   (:export #:defpypackage))
 
 (in-package #:burgled-batteries3-import)
@@ -42,6 +43,8 @@
                                                                        "")))))))))))
 
 (defmacro defpylib (lib &key (ignore-errors t) export prefix)
+  (burgled-batteries3:import "inspect")
+  (burgled-batteries3:import lib)
   `(progn
      (burgled-batteries3:import "inspect")
      (burgled-batteries3:import ,lib)
@@ -60,10 +63,13 @@
 
 (defmacro defpypackage (name)
   (let ((package (read-from-string (format nil "#:py.~A" name))))
-    (defpackage package)
+    (unless (find-package package)
+      (make-package package))
+    (burgled-batteries3:import "inspect")
     `(progn
        (defpackage ,package)
-       ,(let ((*package* (find-package package)))
-          (macroexpand-1 `(defpylib ,name :prefix t :export t :ignore-errors t))))))
+       (let ((*package* (find-package ',package)))
+         ,(let ((*package* (find-package package)))
+          (macroexpand-1 `(defpylib ,name :prefix t :export t :ignore-errors t)))))))
 
 ;; (defpypackage "os")
