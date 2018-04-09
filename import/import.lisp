@@ -66,6 +66,7 @@
     (unless (find-package package)
       (make-package package))
     (burgled-batteries3:import "inspect")
+    (burgled-batteries3:import "json")
     `(progn
        (defpackage ,package)
        (let ((*package* (find-package ',package)))
