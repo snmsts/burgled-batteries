@@ -24,12 +24,18 @@
   (or (when *miniconda3*
         (let ((path (if (pathnamep *miniconda3*)
                         *miniconda3*
-                        (merge-pathnames "miniconda3/" (user-homedir-pathname)))))
+                        (or
+                         (probe-file (merge-pathnames "miniconda3/" (user-homedir-pathname)))
+                         (probe-file "/usr/local/miniconda3/")))))
           (loop :for minor :from 7 :downto 4
              :for it := (cl-fad:directory-exists-p (merge-pathnames (format nil "include/python3.~dm/" minor) path))
              :when it
              :return (progn
-                       (setf *cpython-lib* (cl:list (merge-pathnames (format nil "lib/libpython3.~Am.so.1.0" minor) path)))
+                       (setf *cpython-lib* (cl:list
+                                            (or (probe-file (merge-pathnames
+                                                             (format nil "lib/libpython3.~Am.so.1.0" minor) path))
+                                                (probe-file (merge-pathnames
+                                                             (format nil "lib/libpython3.~Am.dylib" minor) path)))))
                        it))))
       (loop :for minor :from 7 :downto 4
          :when (or (cl-fad:directory-exists-p (format nil "/usr/include/python3.~d" minor))

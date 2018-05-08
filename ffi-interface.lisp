@@ -4,7 +4,14 @@
 ;; Much of what we do below requires it be loaded during macroexpansion time.
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (define-foreign-library python-library
-    (:darwin (:framework "Python"))
+    (:darwin #.(if *cpython-lib*
+                 `(:or ,@*cpython-lib*)
+                 `(:or "libpython3.6m.dylib"
+                       "libpython3.6.dylib"
+                       "libpython3.5m.dylib"
+                       "libpython3.5.dylib"
+                       "libpython3.4m.dylib"
+                       "libpython3.4.dylib")))
     (:unix #.(if *cpython-lib*
                  `(:or ,@*cpython-lib*)
                  `(:or "libpython3.6m.so.1.0"
