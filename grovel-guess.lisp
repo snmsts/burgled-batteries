@@ -2,13 +2,21 @@
 ;; guess at appropriate values.
 (cl:in-package #:python3.cffi)
 
-(cffi:defctype ssize-t (or #+cffi-features:x86 :int32
-                           #+cffi-features:x86-64 :int64
-                           (error "Unable to guess ssize-t.")))
+#-(or cffi-features:x86 cffi-features:x86-64)
+(error "Unable to set ssize-t and size-t because of missing CFFI-FEATURES:X86 / X86-64")
+
+#+cffi-features:x86
+(cffi:defctype ssize-t :int32)
+#+cffi-features:x86-64
+(cffi:defctype ssize-t :int64)
+
 (cl:defconstant size-of-ssize-t (cffi:foreign-type-size 'ssize-t))
-(cffi:defctype size-t (or #+cffi-features:x86 :uint32
-                          #+cffi-features:x86-64 :uint64
-                          (error "Unable to guess size-t.")))
+
+#+cffi-features:x86 
+(cffi:defctype size-t :uint32)
+#+cffi-features:x86-64
+(cffi:defctype size-t :uint64)
+
 (cl:defconstant size-of-size-t (cffi:foreign-type-size 'size-t))
 
 (cffi:defcenum (parser-context)
