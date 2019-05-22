@@ -65,3 +65,31 @@ in #p\"grovel-include-dir.lisp\".
     :serial t))
   :depends-on (#:burgled-batteries3 #:lift #:cl-quickcheck)
   :perform (test-op (o c) #+asdf3 (uiop:symbol-call '#:python3-cffi.test '#:run-tests)))
+
+(defsystem "burgled-batteries3/import"
+  :depends-on (#:burgled-batteries3 #:jonathan)
+  :name "burgled-batteries3-import"
+  :license "MIT"
+  :serial t
+  :components
+  ((:module "import"
+    :components
+    ((:file "import"))
+    :serial t)))
+
+
+(defsystem :burgled-batteries3/demo
+  :name "burgled-batteries3-demo"
+  :description "burgled-batteries3 demo"
+  :author "pinterface <pix@kepibu.org>"
+  :maintainer "mmontone <marianomontone@gmail.com>"
+  :license "MIT"
+  :serial t
+  :components
+  ((:module "todo-app"
+    :pathname "t/todo-app"
+    :components
+    ((:file "package")
+     (:file "todo-list"))
+    :serial t))
+  :depends-on (#:burgled-batteries3))
