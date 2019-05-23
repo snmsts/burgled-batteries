@@ -6,7 +6,8 @@
   (define-foreign-library python-library
     (:darwin #.(if *cpython-lib*
                  `(:or ,@*cpython-lib*)
-                 `(:or "libpython3.6m.dylib"
+                 `(:or "libpython3.7m.dylib"
+                       "libpython3.6m.dylib"
                        "libpython3.6.dylib"
                        "libpython3.5m.dylib"
                        "libpython3.5.dylib"

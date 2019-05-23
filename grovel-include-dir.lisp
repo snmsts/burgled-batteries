@@ -17,27 +17,36 @@
         :when (cl-fad:directory-exists-p path) :return it))
 
 (defvar *miniconda3* t)
-(defvar *cpython-lib* nil)
+(defparameter *cpython-lib*
+  (let ((env-value (uiop:getenv "BB_PYTHON3_DYLIB")))
+    (when env-value
+      (or (and (uiop:file-exists-p env-value) (cl:list env-value))
+          (error "DLL for PYTHON3 not correctly pointed to by BB_PYTHON3_DYLIB: ~A" env-value)))))
 
 (defun detect-python ()
   (setf *detected-library* nil)
-  (or (when *miniconda3*
-        (let ((path (if (pathnamep *miniconda3*)
-                        *miniconda3*
-                        (or
-                         (probe-file (merge-pathnames "miniconda3/" (user-homedir-pathname)))
-                         (probe-file "/usr/local/miniconda3/")))))
-          (when path
-            (loop :for minor :from 7 :downto 4
-                  :for it := (cl-fad:directory-exists-p (merge-pathnames (format nil "include/python3.~dm/" minor) path))
-                  :when it
-                  :return (progn
-                            (setf *cpython-lib* (cl:list
-                                                 (or (probe-file (merge-pathnames
-                                                                  (format nil "lib/libpython3.~Am.so.1.0" minor) path))
-                                                     (probe-file (merge-pathnames
-                                                                  (format nil "lib/libpython3.~Am.dylib" minor) path)))))
-                            it)))))
+  (or
+   (let ((env-value (uiop:getenv "BB_PYTHON3_INCLUDE_DIR")))
+     (when env-value
+       (or (uiop:directory-exists-p env-value)
+           (error "BB_PYTHON3_INCLUDE_DIR is set, but does not point to an actual directory: %a" env-value))))
+   (when *miniconda3*
+     (let ((path (if (pathnamep *miniconda3*)
+                     *miniconda3*
+                     (or
+                      (probe-file (merge-pathnames "miniconda3/" (user-homedir-pathname)))
+                      (probe-file "/usr/local/miniconda3/")))))
+       (when path
+         (loop :for minor :from 7 :downto 4
+               :for it := (cl-fad:directory-exists-p (merge-pathnames (format nil "include/python3.~dm/" minor) path))
+               :when it
+                 :return (progn
+                           (setf *cpython-lib* (cl:list
+                                                (or (probe-file (merge-pathnames
+                                                                 (format nil "lib/libpython3.~Am.so.1.0" minor) path))
+                                                    (probe-file (merge-pathnames
+                                                                 (format nil "lib/libpython3.~Am.dylib" minor) path)))))
+                           it)))))
       (loop :for minor :from 7 :downto 4
          :when (or (cl-fad:directory-exists-p (format nil "/usr/include/python3.~d" minor))
                    (cl-fad:directory-exists-p (format nil "/usr/local/include/python3.~d" minor)))
