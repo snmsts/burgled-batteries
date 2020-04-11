@@ -336,7 +336,6 @@
 (defpyfun "PyEval_RestoreThread" :void ((tstate thread-state)))
 (defpyfun "PyThreadState_Get" thread-state ())
 (defpyfun "PyThreadState_Swap" thread-state ((tstate thread-state)))
-(defpyfun "PyEval_ReInitThreads" :void ())
 (defcenum (gilstate.state :int) :locked :unlocked)
 (defpyfun "PyGILState_Ensure" gilstate.state ())
 (defpyfun "PyGILState_Release" :void ((state gilstate.state)))
