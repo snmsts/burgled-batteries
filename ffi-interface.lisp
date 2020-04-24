@@ -1,18 +1,32 @@
 (in-package #:cpython3)
 
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  #+darwin
+  (defparameter *python3-libpath*
+    (python3-config "--ldflags" "-L")
+    "The path to the python3 libraries; python3-config must return -L result first.")
+
+  #+darwin
+  (defun python3-config-pathname (pn)
+    (namestring (uiop:merge-pathnames* pn *python3-libpath*)))
+
+  #-darwin 				; unneeded other than macosx
+  (defun python3-config-pathname (pn) pn))
+
 ;;;; FFI Library
 ;; Much of what we do below requires it be loaded during macroexpansion time.
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (define-foreign-library python-library
     (:darwin #.(if *cpython-lib*
                  `(:or ,@*cpython-lib*)
-                 `(:or "libpython3.7m.dylib"
-                       "libpython3.6m.dylib"
-                       "libpython3.6.dylib"
-                       "libpython3.5m.dylib"
-                       "libpython3.5.dylib"
-                       "libpython3.4m.dylib"
-                       "libpython3.4.dylib")))
+                 `(:or ,@(mapcar #'python3-config-pathname
+                                 '("libpython3.7m.dylib"
+                                   "libpython3.6m.dylib"
+                                   "libpython3.6.dylib"
+                                   "libpython3.5m.dylib"
+                                   "libpython3.5.dylib"
+                                   "libpython3.4m.dylib"
+                                   "libpython3.4.dylib")))))
     (:unix #.(if *cpython-lib*
                  `(:or ,@*cpython-lib*)
                  `(:or "libpython3.6m.so.1.0"
