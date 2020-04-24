@@ -32,6 +32,7 @@ in #p\"grovel-include-dir.lisp\".
     :serial t
     :components
     ((:file "packages")
+     (:file "config")
      #-burgled-batteries3.guess-not-grovel (:file "grovel-include-dir")
      #-burgled-batteries3.guess-not-grovel (cffi-grovel:grovel-file "grovel")
      #+burgled-batteries3.guess-not-grovel (:file "grovel-guess")

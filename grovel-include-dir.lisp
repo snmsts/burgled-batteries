@@ -55,6 +55,7 @@
       ;; still allowing for a change in Python version
       (when (boundp '*cpython-include-dir*)
         (cl-fad:directory-exists-p *cpython-include-dir*))
+      (python3-config "--include" "-I")
       (query-user-for-include-dir)))
 
 (defparameter *cpython-include-dir* (detect-python))
