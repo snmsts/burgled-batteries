@@ -15,7 +15,9 @@
                        "libpython3.4.dylib")))
     (:unix #.(if *cpython-lib*
                  `(:or ,@*cpython-lib*)
-                 `(:or "libpython3.6m.so.1.0"
+                 `(:or "libpython3.7m.so.1.0"
+		       "libpython3.7.so.1.0"
+		       "libpython3.6m.so.1.0"
                        "libpython3.6.so.1.0"
                        "libpython3.5m.so.1.0"
                        "libpython3.5.so.1.0"
