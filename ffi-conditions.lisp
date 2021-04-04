@@ -42,6 +42,7 @@
 (defpyexception "ValueError" () ())
 #+windows (defpyexception "WindowsError" () ())
 (defpyexception "ZeroDivisionError" () ())
+(defpyexception "ModuleNotFoundError" () ())
 
 (eval-when (:compile-toplevel :load-toplevel)
   (.finalize))
