@@ -2,7 +2,7 @@
 
 ;; Python must have been initialized for our macroexpansions to work.
 (eval-when (:compile-toplevel :load-toplevel)
-  (.initialize)
+  (.initialize-ex 0)
   #+(and sbcl unix); python will fail sbcl's sigpipe-handler.
   (sb-unix::enable-interrupt sb-unix::sigpipe #'sb-unix::sigpipe-handler))
 
@@ -43,6 +43,7 @@
 #+windows (defpyexception "WindowsError" () ())
 (defpyexception "ZeroDivisionError" () ())
 (defpyexception "ModuleNotFoundError" () ())
+(defpyexception "FileNotFoundError" () ())
 
 (eval-when (:compile-toplevel :load-toplevel)
   (.finalize))
