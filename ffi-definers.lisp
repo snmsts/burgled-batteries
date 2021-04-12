@@ -456,11 +456,11 @@ platform and compiler options."
   (declare (ignore type))
   (when decrefp (.dec-ref value)))
 
-(defmethod translate-from-foreign :around (value (type foreign-python-type))
-  (unwind-protect
-       (call-next-method)
-    (unless (borrowed-reference-p type)
-      (.dec-ref value))))
+;; (defmethod translate-from-foreign :around (value (type foreign-python-type))
+;;   (unwind-protect
+;;        (call-next-method)
+;;    (unless (borrowed-reference-p type)
+;;      (.dec-ref value))))
 
 ;;;; Translation for Octet Arrays
 (define-foreign-type octet-array () ())
@@ -628,6 +628,7 @@ but at least we tried."
   initializer functions of any Python superclasses."
   (setf (gethash python-exception *exception-map*) (cons signal-fn initializer-fn)))
 (defun get-exception-signaller (type)
+  (format t "Exception: ~a~%" (%object.get-attr-string type "__name__"))
   (flet ((%getsig (name) (car (gethash name *exception-map*))))
     (or (%getsig (%object.get-attr-string type "__name__"))
         (dolist (s (%get-python-inheritance-tree type))

@@ -6,11 +6,11 @@
     (module.get-dict* main-module*))
 
 (defun startup-python ()
-  (.initialize)
+  (.initialize-ex 0)
   (initialize-modules)
   #+(and sbcl unix); python will fail sbcl's sigpipe-handler.
   (sb-unix::enable-interrupt sb-unix::sigpipe #'sb-unix::sigpipe-handler)
-  )
+  (sb-int:set-floating-point-modes :traps ()))
 
 (defun shutdown-python ()
   (.finalize))
@@ -34,7 +34,7 @@
 (defun call-with-python (thunk)
   (let ((cpython-initialized? (.is-initialized)))
     (unless cpython-initialized?
-      (.initialize)
+      (.initialize-ex 0)
       #+(and sbcl unix); python will fail sbcl's sigpipe-handler.
       (sb-unix::enable-interrupt sb-unix::sigpipe #'sb-unix::sigpipe-handler))
     (unwind-protect
@@ -87,6 +87,9 @@ to (run \"import NAME\")."
 (defun run (thing)
   "Like RUN*, but makes an effort to return a Lispy value."
   (cffi:convert-from-foreign (run* thing) 'cpython3::object!))
+
+(defun convert (thing)
+  (cffi:convert-from-foreign thing 'cpython3::object!))
 
 (defun apply (func &rest args)
   (warn-if-uninitialized)
