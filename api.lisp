@@ -8,8 +8,7 @@
 (defun startup-python ()
   (.initialize-ex 0)
   (initialize-modules)
-  #+(and sbcl unix); python will fail sbcl's sigpipe-handler.
-  (sb-unix::enable-interrupt sb-unix::sigpipe #'sb-unix::sigpipe-handler)
+  #+(and sbcl unix)
   (sb-int:set-floating-point-modes :traps ()))
 
 (defun shutdown-python ()
@@ -34,9 +33,7 @@
 (defun call-with-python (thunk)
   (let ((cpython-initialized? (.is-initialized)))
     (unless cpython-initialized?
-      (.initialize-ex 0)
-      #+(and sbcl unix); python will fail sbcl's sigpipe-handler.
-      (sb-unix::enable-interrupt sb-unix::sigpipe #'sb-unix::sigpipe-handler))
+      (.initialize-ex 0))
     (unwind-protect
          (funcall thunk)
       (unless cpython-initialized?
